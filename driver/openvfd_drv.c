@@ -273,7 +273,8 @@ static int set_display_brightness(struct vfd_dev *dev, u_int8 new_brightness)
 
 static void set_display_type(struct vfd_dev *dev, int new_display_type)
 {
-	memcpy(&dev->dtb_active.display, &new_display_type, sizeof(struct vfd_display));
+	struct vfd_display *display=(struct vfd_display *) &new_display_type;
+	dev->dtb_active.display.type = display->type;
 	init_controller(dev);
 }
 
@@ -733,7 +734,7 @@ static int verify_module_params(struct vfd_dev *dev)
 void get_pin_from_dt(const char *name, const struct platform_device *pdev, struct vfd_pin *pin)
 {
 	if (of_find_property(pdev->dev.of_node, name, NULL)) {
-		pin->pin = of_get_named_gpio_flags(pdev->dev.of_node, name, 0, &pin->flags.value);
+		pin->pin = of_get_named_gpiod_flags(pdev->dev.of_node, name, 0);
 		pr_dbg2("%s: pin = %d, flags = 0x%02X\n", name, pin->pin, pin->flags.value);
 	} else {
 		pin->pin = -2;
