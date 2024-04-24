@@ -1,6 +1,6 @@
 ifeq ($(KERNELRELEASE),)
 		PWD = $(shell pwd)
-	        KERNELDIR = /lib/modules/6.6.16-current-rockchip64/build
+	        KERNELDIR = /lib/modules/$(shell uname -r)/build
 modules:
 	        $(MAKE) -C $(KERNELDIR) M=$(PWD) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- modules
 
