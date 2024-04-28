@@ -93,7 +93,41 @@ void mdelay(int n)
 }
 
 struct sync_data sync_data;
+bool gotIRchar = false;
 
+/*
+	main loop - check IR receved bytes and set FLAG
+*/
+void lirc_loop(){
+	char buf[8];
+
+	//printf("Start lirc wait signal:\n");
+	while(sync_data.isActive) {
+		//printf("DEBUG new thread created!\n");
+		
+		if ( !gotIRchar ){
+			// check lirc dev
+			int fd = open("/dev/lirc0", O_RDONLY);
+			if (fd < 0) {
+				perror("Open /dev/lirc0 failed.\n");
+				return;
+			}
+			// read from fd
+			read(fd, buf, sizeof(buf));
+			//printf("DEBUG read complete %i\r",sizeof(buf));
+			close(fd);
+
+			if (buf[0] > 0){
+				//printf("Ir receive: %s\n",buf);
+				gotIRchar = true;	// set IR received FLAG
+			}
+		}
+	}
+}
+
+/*
+	main display loop
+*/
 void led_display_loop(const struct display_setup *setup)
 {
 	static struct vfd_display_data data = { 0 };
@@ -104,7 +138,7 @@ void led_display_loop(const struct display_setup *setup)
 	struct tm *timenow;
 
 	memset(&data, 0, sizeof(data));
-
+  
 	if (setup->user_string) {
 		use_user_string = true;
 		data.mode = DISPLAY_MODE_TITLE;
@@ -182,7 +216,54 @@ void led_display_loop(const struct display_setup *setup)
 						data.colon_on = !data.colon_on;
 					}
 				}
-				ret = write(openvfd_fd,&data,sizeof(data));
+			// check ethernet
+			char buf_eth[1];
+			int fd = open("/sys/class/net/eth0/carrier", O_RDONLY);
+			if (fd < 0) {
+				perror("Open /sys/class/net/eth0/carrier failed.\n");
+				return;
+			}
+			else{	// read from fd
+				read(fd, buf_eth, 1);
+				close(fd);
+			}
+		
+			// write HERE
+			const int len = 7;
+			unsigned short wb[len];
+			const size_t sz = sizeof(wb[0])*len;
+			memset(wb,0x00, sz);	// set all to 0
+
+			// set display LAN led
+			if ( buf_eth[0]=='1' ){
+				wb[0] |= 0b00001000;	//  lan
+			}
+
+			// set display WIFI led
+			if ( gotIRchar ){
+				wb[0] |= 0b01100000;	//  wifi
+				gotIRchar = false;
+			}
+
+			wb[0] |= 0b00000100;	//  power
+			//wb[0] |= 0b00010000;	//  colon
+			wb[0] |=  0b00010000 & (data.colon_on << 4);
+			wb[1] = char_to_mask(data.time_date.hours/10);	// hour+1
+			wb[2] = char_to_mask(data.time_date.hours%10);	// hour
+			wb[3] = char_to_mask(data.time_date.minutes/10);	// minutes+1
+			wb[4] = char_to_mask(data.time_date.minutes%10);	// minutes
+			
+			//printf("data=%i wb=%i j=%i\r", sizeof(data), sz, j );
+			/*
+			1 -> hour +1
+			2 -> hour
+			3 -> minute +1
+			4 -> minute
+			*/
+			//write to display
+			ret = write(openvfd_fd, wb, sz); 
+			// old write
+			//ret = write(openvfd_fd,&data,sizeof(data));
 			}
 			pthread_mutex_unlock(&sync_data.mutex);
 		} else {
@@ -311,9 +392,22 @@ void led_test_loop(bool cycle_display_types)
 	}
 }
 
+/*
+	New thread - listen ot lirc device for IR signal
+*/
+void *lirc_thread_handler(void *arg)
+{
+	lirc_loop();
+	pthread_exit(NULL);
+}
+
 void *display_thread_handler(void *arg)
 {
 	struct display_setup *setup = (struct display_setup*)arg;
+	const int brightness = FD628_Brightness_8;
+	//printf ("Set brightness to FD628_Brightness_8\n");
+	ioctl(openvfd_fd, VFD_IOC_SBRIGHT, &brightness);
+	mdelay(1000);
 	led_display_loop(setup);
 	pthread_exit(NULL);
 }
@@ -443,7 +537,7 @@ int main(int argc, char *argv[])
 	int ret, type, char_order_count;
 	bool test_mode = false;
 	bool cycle_display_types = true;
-	pthread_t disp_id, npipe_id = 0;
+	pthread_t disp_id, npipe_id = 0,lirc_id;
 
 	if (print_usage(argc, argv))
 		return 0;
@@ -482,9 +576,11 @@ int main(int argc, char *argv[])
 		ret = pthread_create(&disp_id, NULL, display_thread_handler, &setup);
 		if (ret == 0)
 			ret = pthread_create(&npipe_id, NULL, named_pipe_thread_handler, NULL);
+		if (ret == 0)	// create thread for LIRC dev listening
+			ret = pthread_create(&lirc_id, NULL, lirc_thread_handler, &setup);
 	}
 	if(ret != 0) {
-		perror("Create disp_id or npipe_id thread error\n");
+		perror("Create disp_id or npipe_id or lirc_id thread error\n");
 		return ret;
 	}
 
