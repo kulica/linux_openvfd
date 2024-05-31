@@ -26,6 +26,8 @@ nano Makefile
 
 # compile the driver (in openvfd/driver):
 sudo apt install make
+sudo apt-get update
+sudo apt-get install --reinstall build-essential
 sudo apt install aarch64-linux-gnu-gcc
 make -j4
 
