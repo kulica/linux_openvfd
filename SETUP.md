@@ -13,13 +13,13 @@ git clone https://github.com/hqnicolas/linux_openvfd
 cd linux_openvfd/driver
 
 # edit the Makefile
+nano Makefile
 # change the line
         KERNELDIR = ../../../
 # to this:
-        KERNELDIR = /lib/modules/$(shell uname -r)/build
+        KERNELDIR = /lib/modules/6.1.0-1013-rockchip64/build
 
 # create a symlink to correct System.map in this KERNELDIR - in my case:
-# ln -sf /lib/modules/6.1.43-vendor-rk35xx/build/System.map /boot/System.map-6.1.0-1013-rockchip64
 # ln -sf /lib/modules/6.1.0-1013-rockchip64/build/System.map /boot/System.map-6.1.0-1013-rockchip64
 
 
