@@ -25,6 +25,7 @@ cd linux_openvfd/driver
 
 
 # compile the driver (in openvfd/driver):
+sudo apt install make
 make -j4
 
 # install module
