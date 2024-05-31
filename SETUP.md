@@ -19,7 +19,7 @@ cd linux_openvfd/driver
         KERNELDIR = /lib/modules/$(shell uname -r)/build
 
 # create a symlink to correct System.map in this KERNELDIR - in my case:
-# ln -sf /lib/modules/6.6.2-rockchip64/build/System.map /boot/System.map-6.6.2-rockchip64
+# ln -sf /lib/modules/6.1.0-1013-rockchip64/build/System.map /boot/System.map-6.1.0-1013-rockchip64
 # /lib/modules/6.1.7-rockchip64/build/System.map -> /boot/System.map-6.1.7-rockchip64
 # /lib/modules/5.15.16-rockchip64/build/System.map -> /boot/System.map-5.15.16-rockchip64
 
