@@ -10,4 +10,4 @@ the current implementation only supports common cathode and common anode display
 The driver can also support FD650, which uses a variation of the I2C communication protocol.
 In addition it supports HD44780 text based LCD displays, using an I2C backpack.
 
-Instalation: [Setup Tutorial](https://github.com/kulica/linux_openvfd/blob/master/SETUP.md)
+Instalation: [Setup Tutorial](https://github.com/hqnicolas/linux_openvfd/blob/master/SETUP.md)
