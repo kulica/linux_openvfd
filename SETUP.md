@@ -7,7 +7,7 @@
 sudo apt-get install linux-headers-`uname -r`
 
 # download the sources:
-git clone https://github.com/kulica/linux_openvfd
+git clone https://github.com/hqnicolas/linux_openvfd
 
 # change the directory
 cd linux_openvfd/driver
