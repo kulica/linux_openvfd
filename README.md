@@ -9,4 +9,5 @@ Although the FD628 controller has support for a multitude of different display c
 the current implementation only supports common cathode and common anode displays with 7 segments.
 The driver can also support FD650, which uses a variation of the I2C communication protocol.
 In addition it supports HD44780 text based LCD displays, using an I2C backpack.
+
 Instalation: [Setup Tutorial](https://github.com/kulica/linux_openvfd/blob/master/SETUP.md)
