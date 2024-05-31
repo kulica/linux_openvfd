@@ -72,7 +72,7 @@ RemainAfterExit=yes
 [Install]
 WantedBy=basic.target
 ```
-create VFD config in /etc/modprobe.d/openvfd.conf
+5. create VFD config in /etc/modprobe.d/openvfd.conf
 ```
 options openvfd vfd_gpio_clk="4,0x13,0"
 options openvfd vfd_gpio_dat="4,0x16,0"
@@ -88,7 +88,7 @@ options openvfd vfd_dot_bits="0,1,3,2,4,5,6"
 #.4     0 - > FD628 and compatible controllers
 options openvfd vfd_display_type="0x03,0x00,0x00,0x00"
 ```
-enable service and start (this will autoload the kernel module openvfd
+6. enable service and start (this will autoload the kernel module openvfd
 ```
 sudo systemctl enable openvfd
 sudo systemctl start openvfd
