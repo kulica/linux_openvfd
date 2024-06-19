@@ -5,7 +5,7 @@
 ```
 #install kernel headers (skip if already installed)
 sudo apt-get install linux-headers-`uname -r`
-# sudo apt install linux-headers-6.6.28-current-rockchip64
+# sudo apt install linux-headers-6.6.32-current-rockchip64
 
 
 # download the sources:
@@ -19,13 +19,13 @@ nano Makefile
 # change the line
         KERNELDIR = ../../../
 # to this:
-        KERNELDIR = /lib/modules/6.6.28-current-rockchip64/build
+        KERNELDIR = /lib/modules/6.6.32-current-rockchip64/build
 
 # create a symlink to correct System.map in this KERNELDIR - in my case:
 
-sudo ln -sf /lib/modules/6.6.28-current-rockchip64/build/System.map /boot/System.map-6.6.28-current-rockchip64
-rm -rf /lib/modules/6.6.28-current-rockchip64/build
-sudo ln -sf /usr/src/linux-headers-6.6.28-current-rockchip64 /lib/modules/6.6.28-current-rockchip64/build
+sudo ln -sf /lib/modules/6.6.32-current-rockchip64/build/System.map /boot/System.map-6.6.32-current-rockchip64
+rm -rf /lib/modules/6.6.32-current-rockchip64/build
+sudo ln -sf /usr/src/linux-headers-6.6.32-current-rockchip64 /lib/modules/6.6.32-current-rockchip64/build
 
 
 
