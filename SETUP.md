@@ -28,7 +28,7 @@ nano Makefile
 sudo apt install make
 sudo apt-get update
 sudo apt-get install --reinstall build-essential
-sudo apt install aarch64-linux-gnu-gcc
+sudo apt install gcc-aarch64-linux-gnu
 make -j4
 
 # install module
