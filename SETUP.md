@@ -5,6 +5,8 @@
 ```
 #install kernel headers (skip if already installed)
 sudo apt-get install linux-headers-`uname -r`
+# sudo apt install linux-headers-6.6.28-current-rockchip64
+
 
 # download the sources:
 git clone https://github.com/hqnicolas/linux_openvfd
