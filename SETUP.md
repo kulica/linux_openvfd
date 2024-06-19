@@ -22,8 +22,9 @@ nano Makefile
 # create a symlink to correct System.map in this KERNELDIR - in my case:
 
 sudo ln -sf /lib/modules/6.6.28-current-rockchip64/build/System.map /boot/System.map-6.6.28-current-rockchip64
-sudo ln -s /usr/src/linux-headers-6.6.28-current-rockchip64 /lib/modules/6.6.28-current-rockchip64/build
-chmod 777 -R /lib/modules/6.6.28-current-rockchip64/build
+rm -rf /lib/modules/6.6.28-current-rockchip64/build
+sudo ln -sf /usr/src/linux-headers-6.6.28-current-rockchip64 /lib/modules/6.6.28-current-rockchip64/build
+
 
 
 
