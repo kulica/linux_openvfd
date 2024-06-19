@@ -17,7 +17,7 @@ nano Makefile
 # change the line
         KERNELDIR = ../../../
 # to this:
-        KERNELDIR = /lib/modules/6.1.0-1013-rockchip64/build
+        KERNELDIR = /lib/modules/6.6.28-current-rockchip64/build
 
 # create a symlink to correct System.map in this KERNELDIR - in my case:
 
