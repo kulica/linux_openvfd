@@ -28,9 +28,9 @@ nano Makefile
         KERNELDIR = /lib/modules/6.6.32-current-rockchip64/build
 
 # create a symlink to correct System.map in this KERNELDIR - in my case:
-sudo ln -sf /lib/modules/6.6.34-current-rockchip64/build/System.map /boot/System.map-6.6.34-current-rockchip64
+sudo ln -sf /lib/modules/6.6.32-current-rockchip64/build/System.map /boot/System.map-6.6.28-current-rockchip64
 
-sudo ln -s /usr/src/linux-headers-6.6.34-current-rockchip64/System.map /boot/System.map-6.6.34-current-rockchip64
+sudo ln -s /usr/src/linux-headers-6.6.32-current-rockchip64/System.map /boot/System.map-6.6.28-current-rockchip64
 
 # compile the driver (in openvfd/driver):
 sudo apt install make
