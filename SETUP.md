@@ -19,10 +19,11 @@ cd /usr/src/linux-headers-6.6.32-current-rockchip64
 sudo make scripts
 
 # download the sources:
+cd ~/
 git clone https://github.com/hqnicolas/linux_openvfd
 
 # change the directory
-cd linux_openvfd/driver
+cd ~/linux_openvfd/driver
 
 # edit the Makefile
 nano Makefile
