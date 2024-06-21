@@ -12,7 +12,7 @@ uname -r
 https://imola.armbian.com/apt/pool/main/l/
 in my case is 
 https://imola.armbian.com/apt/pool/main/l/linux-libc-dev-current-rockchip64/
-
+sudo dpkg -i file_name.deb
 
 # download the sources:
 git clone https://github.com/hqnicolas/linux_openvfd
