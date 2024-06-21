@@ -14,6 +14,10 @@ in my case is
 https://imola.armbian.com/apt/pool/main/l/linux-headers-current-rockchip64/
 sudo dpkg -i file_name.deb
 
+#### make scripts ####
+cd /usr/src/linux-headers-6.6.32-current-rockchip64
+sudo make scripts
+
 # download the sources:
 git clone https://github.com/hqnicolas/linux_openvfd
 
