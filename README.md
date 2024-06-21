@@ -10,4 +10,4 @@ the current implementation only supports common cathode and common anode display
 The driver can also support FD650, which uses a variation of the I2C communication protocol.
 In addition it supports HD44780 text based LCD displays, using an I2C backpack.
 
-[Install info](https://forum.armbian.com/topic/32493-rockchip-rk3318-x88-pro-10-in-progress/)
+Instalation: [Setup Tutorial](https://github.com/hqnicolas/linux_openvfd/blob/master/SETUP.md)
