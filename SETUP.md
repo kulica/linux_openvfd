@@ -3,16 +3,28 @@
 
 1. Install OpenVFD
 ```
-#install kernel headers (skip if already installed)
+#start install kernel headers (skip if already installed)
+
 ### INSTALL KERNEL HEADERS ####
 sudo apt install armbian-config
 sudo armbian-config
-### TAKE THE SYSTEM NAME ####
-uname -r
 https://imola.armbian.com/apt/pool/main/l/
 in my case is 
 https://imola.armbian.com/apt/pool/main/l/linux-headers-current-rockchip64/
 sudo dpkg -i file_name.deb
+
+### UNINSTALL KERNEL HEADERS ####
+sudo apt install armbian-config
+sudo armbian-config
+
+### INSTALL KERNEL HEADERS ####
+sudo apt install armbian-config
+sudo armbian-config
+
+#stop install kernel headers (skip if already installed)
+
+### TAKE THE SYSTEM NAME ####
+uname -r
 
 #### make scripts ####
 cd /usr/src/linux-headers-6.6.32-current-rockchip64
